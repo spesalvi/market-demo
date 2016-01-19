@@ -8,7 +8,17 @@
                 <div class="panel-heading">Dashboard</div>
 
                 <div class="panel-body">
-                    You are logged in!
+		<ul>
+		@forelse($categories as $category)
+			<li>
+				<a href="/buy-{{ $category['url'] }}-gift-cards">{{ $category['brand'] }}</a>
+			</li>
+		@empty
+		<div>
+			Nothing.
+		</div>
+		</ul>
+		@endforelse
                 </div>
             </div>
         </div>

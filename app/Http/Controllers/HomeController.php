@@ -14,7 +14,7 @@ class HomeController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('auth');
+    //    $this->middleware('auth');
     }
 
     /**
@@ -24,6 +24,58 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('home');
+	$categories = [
+		[
+			'image' => '',
+			'brand' => 'LifeStyle',
+			'tagline' => '',
+			'url' => 'lifestyle'
+		],
+		[
+			'image' => '',
+			'brand' => 'Jabong',
+			'tagline' => '',
+			'url' => 'jabong'
+		],
+		[
+			'image' => '',
+			'brand' => 'Shopper Stop',
+			'tagline' => '',
+			'url' => 'shopper-stop'
+		],
+		[
+			'image' => '',
+			'brand' => 'Fastrack',
+			'tagline' => '',
+			'url' => 'fastrack'
+		],
+		[
+			'image' => '',
+			'brand' => 'MyLifeCare',
+			'tagline' => '',
+			'url' => 'mylifecare'
+		],
+		[
+			'image' => '',
+			'brand' => 'Cafe Coffee Day',
+			'tagline' => '',
+			'url' => 'cafe-coffee-day'
+		],
+		[
+			'image' => '',
+			'brand' => 'Amazon',
+			'tagline' => '',
+			'url' => 'amazon'
+		],
+		[
+			'image' => '',
+			'brand' => 'Woohoo Gift Card',
+			'tagline' => '',
+			'url' => 'woohoo-gift-card'
+		]
+	];
+        return view('home', [
+		'categories' => $categories 
+	]);
     }
 }

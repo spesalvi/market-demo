@@ -11,12 +11,12 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
-
+Route::get('/', 'HomeController@index');
+Route::get('/buy-{brand}-gift-cards', 'ListingController@getListing')
+	->where('name', '[A-Za-z]+');
 Route::get('/sell-gift-card', 'SellController@getAddCard');
 Route::post('/sell-gift-card', 'SellController@postAddCard');
+Route::get('/gift-card-listings', 'ListingController@getListing');
 #Route::get('/
 /*
 |--------------------------------------------------------------------------
