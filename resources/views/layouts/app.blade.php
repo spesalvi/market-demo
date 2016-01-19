@@ -67,6 +67,7 @@
                             </ul>
                         </li>
                     @endif
+		    <li><a href="{{ url('/cart') }}"> 0 item(s) in cart</a> </li>
                 </ul>
             </div>
         </div>

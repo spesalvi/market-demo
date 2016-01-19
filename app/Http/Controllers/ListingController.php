@@ -7,9 +7,17 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 #use App\GiftCard;
 use App\Http\Controllers\Controller;
+use JulioBitencourt\Cart\Cart;
 
 class ListingController extends Controller
 {
+
+	protected $cart;
+
+	public function __construct(Cart $cart)
+	{
+		$this->cart = $cart;
+	}
 
 	public function getListing(Request $request)
 	{
@@ -31,6 +39,7 @@ class ListingController extends Controller
 			],
 		];
 		return view('listing.all', [
+			'cart_items' => $this->cart->totalItems(),
 			'gift_cards' => $gift_cards
 		]);
 	}

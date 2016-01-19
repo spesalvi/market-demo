@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests;
 use Illuminate\Http\Request;
+use JulioBitencourt\Cart\Cart;
 
 class HomeController extends Controller
 {
@@ -12,8 +13,12 @@ class HomeController extends Controller
      *
      * @return void
      */
-    public function __construct()
+	
+    protected $cart;
+
+    public function __construct(Cart $cart)
     {
+    	$this->cart = $cart;
     //    $this->middleware('auth');
     }
 
@@ -75,6 +80,7 @@ class HomeController extends Controller
 		]
 	];
         return view('home', [
+		'cart_items' => $this->cart->totalItems(),
 		'categories' => $categories 
 	]);
     }
