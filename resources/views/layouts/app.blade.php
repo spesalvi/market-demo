@@ -28,6 +28,23 @@
 		border: 1px solid;
 		text-align: center;
 	}
+
+	ul {
+		list-style : none;
+	}
+
+	ul li {
+		float: left;
+	}
+	 span.img {
+	 	display:block;
+		float: none;
+	 }
+
+	 span.txt  {
+	 	display: block;
+	 }
+
     </style>
 </head>
 <body id="app-layout">
