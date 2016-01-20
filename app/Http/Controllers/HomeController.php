@@ -61,17 +61,21 @@ class HomeController extends Controller
 	);
 	$client->enableDebug();
 	$client->setToken($oauth_token, $oauth_secret);
-	$client->fetch(
-		'http://local.giftbig.com/rest/catalog', 
-		'', 
-		OAUTH_HTTP_METHOD_GET, 
-		[
-			'Content-Type' => 'application/json',
-			'Accept' => '*/*'
-		]
-	);
-	$result = $client->getLastResponse();
-	$result = json_decode($result);
-	return ($result->_embedded->products);
+	try {
+		$client->fetch(
+			'http://local.giftbig.com/rest/catalog', 
+			'', 
+			OAUTH_HTTP_METHOD_GET, 
+			[
+				'Content-Type' => 'application/json',
+				'Accept' => '*/*'
+			]
+		);
+		$result = $client->getLastResponse();
+		$result = json_decode($result);
+		return ($result->_embedded->products);
+ 	} catch(\Exception $e) {
+		return [];
+	}	
     }
 }
