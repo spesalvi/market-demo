@@ -19,7 +19,7 @@ class ListingController extends Controller
 		$this->cart = $cart;
 	}
 
-	public function getListing(Request $request)
+	public function getListing(Request $request, $brand)
 	{
 		$gift_cards = [
 			[
@@ -40,7 +40,8 @@ class ListingController extends Controller
 		];
 		return view('listing.all', [
 			'cart_items' => $this->cart->totalItems(),
-			'gift_cards' => $gift_cards
+			'gift_cards' => $gift_cards,
+			'brand' => $brand
 		]);
 	}
     //

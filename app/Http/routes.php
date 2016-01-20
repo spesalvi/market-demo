@@ -32,7 +32,7 @@ Route::group(['middleware' => 'web'], function () {
 
     Route::get('/home', 'HomeController@index');
 Route::get('/buy-{brand}-gift-cards', 'ListingController@getListing')
-	->where('name', '[A-Za-z]+');
+	->where('brand', '[A-Za-z-]+');
 Route::get('/sell-gift-card', 'SellController@getAddCard');
 Route::post('/sell-gift-card', 'SellController@postAddCard');
 Route::get('/gift-card-listings', 'ListingController@getListing');
