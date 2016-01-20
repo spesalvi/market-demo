@@ -22,7 +22,7 @@
 			<td>10%</td>
 			<td>{{ $giftcard['offer_price'] }}</td>
 			<td> {{ $giftcard['expiry_date'] }} </td>
-			<td><button>Buy</button></td>
+			<td><button data-sku="{{ $giftcard['sku'] }}" data-desc="" data-price="{{ $giftcard['offer_price']}}">Buy</button></td>
 			</tr>
 	@empty
 		No cards in offering.

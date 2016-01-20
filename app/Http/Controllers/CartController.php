@@ -35,9 +35,9 @@ class CartController extends Controller
 			return new Response($content, $status_code);
 		}	
 		$item = [
-			'sku' => '123456',
-			'description' => 'PlayStation 4',
-			'price' => 300,
+			'sku' => $request->input('sku'),
+			'description' => $request->input('description'),
+			'price' => $request->input('price'),
 			'quantity' => 1
 		];
 		$result = $this->cart->insert($item);
@@ -56,8 +56,22 @@ class CartController extends Controller
 	{
 	}
 
-	public function discard()
+	public function discard(Request $request)
 	{
-
+	 	if(!$request->ajax())
+		{
+			$status_code = 401;
+			$content = 'Not allowed';
+			return new Response($content, $status_code);
+		}	
+		$this->cart->destroy();
+		$response = array(
+			'status' => 'success',
+			'cart_size' => $this->cart->totalItems()
+		);
+		return new Response(
+			json_encode($response),
+			200
+		);
 	}
 }
