@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
-#use App\GiftCard;
+use App\GiftCard;
 use App\Http\Controllers\Controller;
 use JulioBitencourt\Cart\Cart;
 
@@ -21,6 +21,7 @@ class ListingController extends Controller
 
 	public function getListing(Request $request, $brand)
 	{
+		//$gift_cards = GiftCard::all();
 		$gift_cards = [
 			[
 				'sku' => '123',

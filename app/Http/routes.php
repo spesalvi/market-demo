@@ -31,13 +31,14 @@ Route::group(['middleware' => 'web'], function () {
     Route::auth();
 
     Route::get('/home', 'HomeController@index');
-Route::get('/buy-{brand}-gift-cards', 'ListingController@getListing')
+    Route::get('/buy-{brand}-gift-cards', 'ListingController@getListing')
 	->where('brand', '[A-Za-z-]+');
-Route::get('/sell-gift-card', 'SellController@getAddCard');
-Route::post('/sell-gift-card', 'SellController@postAddCard');
-Route::get('/gift-card-listings', 'ListingController@getListing');
-Route::post('/cart/add', 'CartController@add');
-Route::post('/cart/delete', 'CartController@delete');
-Route::post('/cart/discard', 'CartController@discard');
-Route::get('/cart', 'CartController@index');
+    Route::get('/sell-gift-card', 'SellController@getAddCard');
+    Route::post('/sell-gift-card', 'SellController@postAddCard');
+    Route::get('/gift-card-listings', 'ListingController@getListing');
+    Route::post('/cart/add', 'CartController@add');
+    Route::post('/cart/delete', 'CartController@delete');
+    Route::post('/cart/discard', 'CartController@discard');
+    Route::get('/cart', 'CartController@index');
+    Route::post('/purchase', 'PurchaseController@done');
 });

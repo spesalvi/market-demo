@@ -36,7 +36,7 @@
 <form action="/purchase" method="POST">
 <script
     src="https://checkout.razorpay.com/v1/checkout.js"
-    data-key="rzp_test_JG63XOtKkVMha0"
+    data-key="rzp_test_C4L2rxsV1t84Ks"
     data-amount="{{ $cart->total() * 100}}"
     data-name="Woohoo Market"
     data-description="Selling GiftCard"
@@ -46,11 +46,12 @@
     @else 
     data-prefill.name="{{Auth::user()->name}}"
     @endif
-    data-prefill.email="robert.george@poovelil.org"
+    data-prefill.email="robert.george@qwikcilver.com"
     data-prefill.contact="9986442677"
     data-theme.color="#F37254"
 ></script>
 <input type="hidden" value="Hidden Element" name="hidden">
+{!! csrf_field() !!}
 </form>
 						</td>
 						</tr>
