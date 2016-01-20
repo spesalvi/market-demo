@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
@@ -22,8 +23,14 @@ class CartController extends Controller
 		echo $this->cart->totalItems();		
 	}
 
-	public function add()
+	public function add(Request $request)
 	{
+	 	if(!$request->ajax())
+		{
+			$status_code = 401;
+			$content = 'Not allowed';
+			return new Response($content, $status_code);
+		}	
 		$item = [
 			'sku' => '123456',
 			'description' => 'PlayStation 4',
@@ -31,7 +38,14 @@ class CartController extends Controller
 			'quantity' => 1
 		];
 		$result = $this->cart->insert($item);
-		echo $this->cart->totalItems();
+		$response = array(
+			'status' => 'success',
+			'cart_size' => $this->cart->totalItems()
+		);
+		return new Response(
+			json_encode($response),
+			200
+		);
 		
 	}
 
