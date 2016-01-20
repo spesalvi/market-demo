@@ -24,6 +24,10 @@
         .fa-btn {
             margin-right: 6px;
         }
+ 	td, th{
+		border: 1px solid;
+		text-align: center;
+	}
     </style>
 </head>
 <body id="app-layout">

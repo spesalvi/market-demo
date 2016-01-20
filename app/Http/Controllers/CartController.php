@@ -20,7 +20,10 @@ class CartController extends Controller
 
 	public function index()
 	{
-		echo $this->cart->totalItems();		
+		return view('cart.details',[
+			'total' => $this->cart->totalItems(),
+			'cart' => $this->cart
+		]);
 	}
 
 	public function add(Request $request)

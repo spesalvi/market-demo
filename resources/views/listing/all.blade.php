@@ -5,14 +5,14 @@
 	<div class="row">
 		<div class="col-md-10 col-md-offset-1">
 			<div class="panel panel-default">
-				<div class="panel-heading">Dashboard</div>
+				<div class="panel-heading">Buy Giftcards</div>
 					<div class="panel-body">
 					<table>
 					 <tr>
-					   <th>Value</th>
-					   <th>% Off</th>
-					   <th>Price</th>
-					   <th>Expiry date</th>
+					   <th class="col-md-2">Value</th>
+					   <th class="col-md-2">% Off</th>
+					   <th class-"col-md-2">Price</th>
+					   <th class="col-md-2">Expiry date</th>
 					   <th></th>
 					 </tr>
 	@forelse($gift_cards as $giftcard)
