@@ -27,6 +27,33 @@
 					@empty
 						Your cart is empty
 					@endforelse
+						<tr>
+						  <td></td>
+						  <td></td>
+						  <td>Grand total: </td>
+						  <td>{{ $cart->total() }}</td>
+						  <td>
+<form action="/purchase" method="POST">
+<script
+    src="https://checkout.razorpay.com/v1/checkout.js"
+    data-key="rzp_test_JG63XOtKkVMha0"
+    data-amount="{{ $cart->total() * 100}}"
+    data-name="Woohoo Market"
+    data-description="Selling GiftCard"
+    data-image="https://stage.woohoo.in/media/smartbanner/woohoo_banner.png"
+    @if (Auth::guest())
+    data-prefill.name="Robert George"
+    @else 
+    data-prefill.name="{{Auth::user()->name}}"
+    @endif
+    data-prefill.email="robert.george@poovelil.org"
+    data-prefill.contact="9986442677"
+    data-theme.color="#F37254"
+></script>
+<input type="hidden" value="Hidden Element" name="hidden">
+</form>
+						</td>
+						</tr>
 					</div>
 					</table>
 			</div>
