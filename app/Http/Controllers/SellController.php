@@ -3,6 +3,7 @@
 use App\Http\Requests\SellFormRequest;
 use App\GiftCard;
 use Illuminate\Routing\Controller;
+use Illuminate\Support\Facades\Crypt;
 use Response;
 use View;
 
@@ -52,7 +53,7 @@ class SellController extends Controller
 	{
 		$card = new GiftCard;
 		$card->card_number = $card_num;
-		$card->encyrpted_pin = \Illuminate\Support\Facades\Crypt::encrypt($pin);
+		$card->encyrpted_pin = Crypt::encrypt($pin);
 		$card->balance = $balance;
 		$card->expiry_date = date('Y-m-d\TH:i:s\Z"', $expiry_date);
 		$card->user_id = 1;

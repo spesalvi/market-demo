@@ -35,6 +35,7 @@
 
 	ul li {
 		float: left;
+		width: 100px;
 	}
 	 span.img {
 	 	display:block;
@@ -44,6 +45,10 @@
 	 span.txt  {
 	 	display: block;
 	 }
+         img {
+		background: khaki;
+		border-radius: 7px;
+	}
 
     </style>
 </head>

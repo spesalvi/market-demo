@@ -12,7 +12,7 @@
 		@forelse($categories as $category)
 			<li>
 				<a href="/buy-{{ $category['url'] }}-gift-cards">
-				<span class="img"><img width="160" height="98" src="{{ $category['image'] }}" >
+				<span class="img"><img width="68" height="68" src="{{ $category['image'] }}" >
 				<span class="txt">{{ $category['brand'] }}</span>
 				</a>
 
