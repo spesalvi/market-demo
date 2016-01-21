@@ -7,7 +7,7 @@
 			<div class="panel panel-default">
 				<div class="panel-heading">Cart</div>
 					<div class="panel-body">
-					<table>
+					<table class="table table-striped">
 					<tr>
 						<th class="col-md-2">SKU</th>
 						<th class="col-md-5">Description</th>

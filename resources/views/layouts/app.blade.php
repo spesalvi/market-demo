@@ -25,8 +25,8 @@
             margin-right: 6px;
         }
  	td, th{
-		border: 1px solid;
 		text-align: center;
+		padding: 10px;
 	}
 
 	ul {
