@@ -9,7 +9,7 @@
 				<div class="panel-body">
 					<form class="form-horizontal" role="form" method="POST">
 					{!! csrf_field() !!}
-					<div class="form-group">
+					<div class="form-group{{ $errors->has('card-number') ? ' has-error' : '' }} ">
 						<label class="col-md-4 control-label">
 							Card Number
 						</label>
@@ -18,12 +18,13 @@
 							@if($errors->has('card-number'))
 								<span class="helper-block">
 									<strong>
+									 {{ $errors->first('card-number') }}
 									</strong>
 								</span>
 							@endif
 						</div>
 					</div>
-					<div class="form-group">
+					<div class="form-group{{ $errors->has('pin') ? ' has-error' : '' }}">
 						<label class="col-md-4 control-label">
 							Pin
 						</label>
