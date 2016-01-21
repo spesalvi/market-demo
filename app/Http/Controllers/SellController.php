@@ -2,16 +2,24 @@
 
 use App\Http\Requests\SellFormRequest;
 use App\GiftCard;
+use App\StoredValue;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Crypt;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log;
 use Response;
 use View;
 
-require_once '/home/robert/work/projects/gb/gbservermage/SVClientUtility/Utility.php';
 
 class SellController extends Controller
 {
-	const SVPropertiesPath = '/home/robert/work/projects/gb/gbservermage/SVClientUtility/TEST0QA_gc_serverobj.properties';
+	private $sv;
+
+	
+	public function __construct(StoredValue $sv)
+	{
+		$this->sv = $sv;
+	}
 	public function getAddCard()
 	{
 		return view('sell.add');
@@ -21,62 +29,32 @@ class SellController extends Controller
 	{
 		$card_number = $request->input('card-number');
 		$pin = $request->input('pin');
-		$this->checkBalance($card_number, $pin);
-		return Response::make('Card Added');
-	}
-
-	private function checkBalance($card_num, $pin)
-	{
-		$txnId = (new \Utility())->getTxnId();
-		$svProperties = $this->getSVProperties();
-		$svRequest = \GCWebPos::balanceEnquiry($svProperties, 
-			$card_num, 
-			$pin, 
-			$txnId, 
-			'', 
-			''
-		);
-		$svResponse = $svRequest->execute();
+		$svResponse = $this->sv->checkBalance($card_number, $pin);
 		if($svResponse->getErrorCode() == 0)
 		{
 			$this->saveCard(
-				$card_num,
+				$card_number,
 				$pin,
 				$svResponse->getAmount(),
 				$svResponse->getCardExpiry()
 			);
 		//	$this->deActivateCard($card_num);
 		}
+		return Response::make('Card Added');
 	}
 
 	private function saveCard($card_num, $pin, $balance, $expiry_date)
 	{
+		$user = Auth::user();
+		 
 		$card = new GiftCard;
 		$card->card_number = $card_num;
 		$card->encyrpted_pin = Crypt::encrypt($pin);
 		$card->balance = $balance;
 		$card->expiry_date = date('Y-m-d\TH:i:s\Z"', $expiry_date);
-		$card->user_id = 1;
+		$card->user_id = $user->id;
 
 		$card->save();
 	}
 
-	private function getSVProperties()
-	{
-		return \SVServerData::load(self::SVPropertiesPath);
-	}
-
-	private function deActivateCard($card_num)
-	{
-		$svProperties = $this->getSVProperties();
-		$txnId = (new \Utility())->getTxnId();
-		$svRequest = \GCWebPos::deactivate($svProperties, 
-			$card_num,  
-			$txnId
-		);
-
-		$svResponse = $svRequest->execute();
-
-		var_dump($svResponse);
-	}
 }
