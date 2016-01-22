@@ -30,6 +30,13 @@
 						</label>
 						<div class="col-md-6">
 							<input type="password" name="pin" class="form-control" size="4">
+							@if($errors->has('pin'))
+								<span class="helper-block">
+									<strong>
+									 {{ $errors->first('pin') }}
+									</strong>
+								</span>
+							@endif
 						</div>
 					</div>
 					<div class="form-group">

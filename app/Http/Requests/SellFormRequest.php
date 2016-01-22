@@ -9,8 +9,8 @@ class SellFormRequest extends FormRequest
 	public function rules()
 	{
 		return [
-			'card-number' => 'required|unique:gift_cards,card_number|numeric|min:16|max:16',
-			'pin' => 'required|numeric|min:6|max:6'
+			'card-number' => 'required|unique:gift_cards,card_number|regex:/^[0-9]{16}$/',
+			'pin' => 'required|regex:/^[0-9]{6}/'
 		];
 	}
 
