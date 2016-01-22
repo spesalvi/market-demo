@@ -34,6 +34,7 @@ Route::group(['middleware' => 'web'], function () {
     Route::get('/buy-{brand}-gift-cards', 'ListingController@getListing')
 	->where('brand', '[A-Za-z-]+');
     Route::get('/sell-gift-card', 'SellController@getAddCard');
+    Route::post('/check-gift-card-balance', 'SellController@postCheckBalance');
     Route::post('/sell-gift-card', 'SellController@postAddCard');
     Route::get('/gift-card-listings', 'ListingController@getListing');
     Route::post('/cart/add', 'CartController@add');

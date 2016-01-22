@@ -25,7 +25,7 @@
 			<td>{{ $giftcard['offer_price'] }}</td>
 			<td> {{ $giftcard['expiry_date'] }} </td>
 			<td>
-				<button class="btn btn-primary" data-sku="{{ $giftcard['sku'] }}" data-desc="" data-price="{{ $giftcard['offer_price']}}">
+				<button class="buy-card btn btn-primary" data-sku="{{ $giftcard['sku'] }}" data-desc="" data-price="{{ $giftcard['offer_price']}}">
 					Buy Now
 				</button>
 			</td>

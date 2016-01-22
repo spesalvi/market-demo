@@ -7,14 +7,14 @@
 			<div class="panel panel-default">
 				<div class="panel-heading">Sell your gift card</div>
 				<div class="panel-body">
-					<form class="form-horizontal" role="form" method="POST">
+					<form class="form-horizontal" role="form" method="POST" autocomplete="off">
 					{!! csrf_field() !!}
-					<div class="form-group{{ $errors->has('card-number') ? ' has-error' : '' }} ">
+					<div id='card-number-container' class="form-group{{ $errors->has('card-number') ? ' has-error' : '' }} ">
 						<label class="col-md-4 control-label">
 							Card Number
 						</label>
 						<div class="col-md-6">
-							<input type="text" class="form-control" name="card-number">
+							<input type="text" class="form-control" name="card-number" value="">
 							@if($errors->has('card-number'))
 								<span class="helper-block">
 									<strong>
@@ -24,7 +24,7 @@
 							@endif
 						</div>
 					</div>
-					<div class="form-group{{ $errors->has('pin') ? ' has-error' : '' }}">
+					<div id="pin-container" class="form-group{{ $errors->has('pin') ? ' has-error' : '' }}">
 						<label class="col-md-4 control-label">
 							Pin
 						</label>
@@ -39,10 +39,37 @@
 							@endif
 						</div>
 					</div>
+					<div class="form-group" >
+						<label class="col-md-4 control-label">
+						 	Stored Value
+						</label>
+						<div class="col-md-6">
+						  <input id="balance" name="balance" type="text" class="form-control" readonly value="">
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="col-md-4 control-label">
+							Selling Price
+						</label>
+						<div class="col-md-6">
+							<input id="price" name="price" type="text" class="form-control">
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="col-md-4 control-label">
+							Expiry Date	
+						</label>
+						<div class="col-md-6">
+							<input type="date" id="date" name="date" type="text" class="form-control">
+						</div>
+					</div>
 					<div class="form-group">
 					  <div class="col-md-6 col-md-offset-4">
-					  	<button type="submit" class="btn btn-primary">
+					  	<button type="submit" id="validate-card" class="btn btn-primary">
 						  <i class="fa fa-btn fa-sign-in"></i>Validate Card
+						</button>
+						<button type="submit" style="display:none;" id="sell-card" class="btn btn-prmiary">
+						  <i class="fa fa-btn fa-sign-in"></i>Sell Card
 						</button>
 
 					  </div>
