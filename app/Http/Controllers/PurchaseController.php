@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
+use App\Jobs\SendPurchaseEmail;
+use App\User;
 
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
@@ -15,9 +17,11 @@ class PurchaseController extends Controller
 {
 	const KEY_RAZORPAY = 'MfAD1JyfcaSQRwoHeLvLEAVk';
 	protected $cart;
+	protected $user;
 
-	public function __construct(Cart $cart)
+	public function __construct(Cart $cart, User $user)
 	{
+		$this->user = Auth::user();
 		$this->cart  = $cart;
 	}
 
@@ -35,19 +39,7 @@ class PurchaseController extends Controller
 	
 	private function mailCardDetails($cardnumber, $pin)
 	{
-		$user = Auth::user();
-		$email = $user->email;
-
-		Mail::send('sell.emails.purchased_cards', 
-			[
-				'user' => $user,
-				'cardnumber' => $cardnumber,
-				'pin' => $pin
-			], 
-			function ($m) use ($user) {
-				$m->to($user->email, $user->name)->subject('Your gift cards');
-			}
-		);
+		$this->dispatch(new SendPurchaseEmail($this->user->id, $cardnumber, $pin));	
 	}
 
 	private function capturePayment($id)
