@@ -27,8 +27,9 @@ Route::group(['middleware' => ['web']], function () {
     Route::auth();
     Route::get('/', 'HomeController@index');
     Route::get('/home', 'HomeController@index');
+    Route::get('/buy-gift-cards', 'ListingController@getAllListings');
     Route::get('/buy-{brand}-gift-cards', 'ListingController@getListing')
-	->where('brand', '[A-Za-z-]+');
+		->where('brand', '[A-Za-z-]+');
     Route::get('/gift-card-listings', 'ListingController@getListing');
 
     Route::post('/cart/add', 'CartController@add');
