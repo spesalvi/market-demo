@@ -30,6 +30,8 @@ $('#validate-card').click(function(event){
 					$('#balance').val(data.data.balance);
 					console.log(new Date(data.data.expiry));
 					$('#date').val(data.data.expiry);
+					console.log(data.data);
+					$('input[name="brand_sv"]').val(data.data.brand);
 					$(that).hide();
 					$('#sell-card').show();
 				}

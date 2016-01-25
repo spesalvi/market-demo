@@ -60,9 +60,10 @@
 							Expiry Date	
 						</label>
 						<div class="col-md-6">
-							<input type="date" id="date" name="date" type="text" class="form-control">
+							<input readonly id="date" name="date" type="text" class="form-control">
 						</div>
 					</div>
+						<input type="hidden" name="brand_sv" value="">
 					<div class="form-group">
 					  <div class="col-md-6 col-md-offset-4">
 					  	<button type="submit" id="validate-card" class="btn btn-primary">

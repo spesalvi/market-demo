@@ -23,11 +23,11 @@ class SendPurchaseEmail extends Job implements ShouldQueue
      * @return void
      */
     public function __construct($user_id, $card_number, $card_pin)
-    {
-    	$this->user = User::find($user_id);
-	$this->card_number = $card_number;
-	$this->card_pin = $card_pin;
-    }
+	{
+		$this->user = User::find($user_id);
+		$this->card_number = $card_number;
+		$this->card_pin = $card_pin;
+	}
 
     /**
      * Execute the job.
