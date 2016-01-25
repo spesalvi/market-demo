@@ -57,7 +57,7 @@ class ResetPinAfterListing extends Job implements ShouldQueue
 		$pin = $resetResponse->getCardPin();
 
 		Log::info('new pin ' . $pin);
-		$this->card->pin = Crypt::encrypt($pin);
+		$this->card->encyrpted_pin = Crypt::encrypt($pin);
 		$this->card->save();
 
 		$this->delete();	
