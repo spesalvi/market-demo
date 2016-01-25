@@ -28,7 +28,7 @@ $factory->define(App\GiftCard::class, function (Faker\Generator $faker) {
 			'expiry_date' => $faker->dateTimeBetween('now', '+12 months'),
 			'offer_price' => $faker->randomFloat(3, 800.00, 899.00),
 			'user_id' => '1',
-			'brand_id' => '0'
+			'brand_id' => rand(1, 6)
 		];
 		
 });

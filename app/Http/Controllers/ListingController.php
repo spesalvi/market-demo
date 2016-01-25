@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 
 use App\Http\Requests;
 use App\GiftCard;
+use App\Brands;
 use App\Http\Controllers\Controller;
 use JulioBitencourt\Cart\Cart;
 
@@ -19,9 +20,20 @@ class ListingController extends Controller
 		$this->cart = $cart;
 	}
 
-	public function getListing(Request $request, $brand)
+	public function getAllListings(Request $request)
 	{
-		$brand_cards = GiftCard::where('brand_id', 0)->get();
+		$brand_cards = GiftCard::all();
+
+	//	for
+		
+	}
+
+	public function getListing(Request $request, $brand_slug)
+	{
+		$brands = $this->getBrand($brand_slug);
+		foreach($brands as $brand)
+			$brand_cards = GiftCard::where('brand_id', $brand->id)->get();
+
 		
 		$gift_cards = [];
 		foreach($brand_cards as $card)
@@ -30,15 +42,21 @@ class ListingController extends Controller
 				'sku' => $card->id,
 				'expiry_date' => $card->expiry_date,
 				'balance' => $card->balance,
-				'offer_price' => $card->offer_price
+				'offer_price' => $card->offer_price,
+				'image' => $brand->img_large
 			];
 		}
 
 		return view('listing.all', [
 			'cart_items' => $this->cart->totalItems(),
 			'gift_cards' => $gift_cards,
-			'brand' => $brand
+			'brand' => $brand->brand
 		]);
+	}
+
+	private function getBrand($brand_slug)
+	{
+		return Brands::where('slug', $brand_slug)->get();	
 	}
     //
 }
