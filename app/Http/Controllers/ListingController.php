@@ -23,18 +23,19 @@ class ListingController extends Controller
 	public function getAllListings(Request $request)
 	{
 		$brand_cards = GiftCard::all();
-
-	//	for
-		
+		return $this->displayCards($brand_cards);
 	}
 
 	public function getListing(Request $request, $brand_slug)
 	{
-		$brands = $this->getBrand($brand_slug);
-		foreach($brands as $brand)
-			$brand_cards = GiftCard::where('brand_id', $brand->id)->get();
+		$brand = $this->getBrand($brand_slug);
+		$brand_cards = GiftCard::where('brand_id', $brand->id)->get();
 
-		
+		return $this->displayCards($brand_cards, $brand);
+	}
+
+	private function displayCards($brand_cards, $brand = null)
+	{
 		$gift_cards = [];
 		foreach($brand_cards as $card)
 		{
@@ -43,20 +44,21 @@ class ListingController extends Controller
 				'expiry_date' => $card->expiry_date,
 				'balance' => $card->balance,
 				'offer_price' => $card->offer_price,
-				'image' => $brand->img_large
+				'image' => $card->brand->img_large
 			];
 		}
 
 		return view('listing.all', [
 			'cart_items' => $this->cart->totalItems(),
 			'gift_cards' => $gift_cards,
-			'brand' => $brand->brand
+			'brand' => $brand ? $brand->brand : ''
 		]);
+		
 	}
 
 	private function getBrand($brand_slug)
 	{
-		return Brands::where('slug', $brand_slug)->get();	
+		return Brands::where('slug', $brand_slug)->get()->first();	
 	}
     //
 }

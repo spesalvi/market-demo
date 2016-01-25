@@ -5,7 +5,7 @@
 	<div class="row">
 		<div class="col-md-10 col-md-offset-1">
 			<div class="panel panel-default">
-				<div class="panel-heading"> </div>
+				<div class="panel-heading">My Gift Cards</div>
 				<div class="panel-body">
 					<table class="table table-striped">
 						<tr>
@@ -17,7 +17,7 @@
 						@forelse($cards as $card)
 							<tr>
 								<td>
-									<img width="68" height="68" src="http://devcdn.giftbig.com/dev3/brands_logo/large/3_logo.png">
+									<img width="68" height="68" src="{{$card->brand->img_large}}">
 								</td>
 								<td>{{$card['balance']}}</td>
 								<td>{{$card['offer_price']}}</td>
