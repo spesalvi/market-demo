@@ -15,7 +15,9 @@ $('button.buy-card').click(function(){
 		var response = $.parseJSON(data);
 		if(response.status == 'success') {
 			$('#size').html(response.cart_size);
-			$(that).html('Sell');
+			$(that).html('Remove')
+				.removeClass('btn-primary')
+				.addClass('btn-danger');
 		}
 	});
 });
