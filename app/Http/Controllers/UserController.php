@@ -20,10 +20,7 @@ class UserController extends Controller
 
 	public function getMyCards()
 	{
-		echo $this->user->name . "<br>";
-		echo $this->user->id . "<br>";
-
-		$cards = GiftCard::where('user_id', $this->user->id);
+		$cards = GiftCard::where('user_id', $this->user->id)->get();
 		
 		return view('user.cards')
 			->with(compact('cards'));
