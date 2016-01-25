@@ -5,7 +5,7 @@
 	<div class="row">
 		<div class="col-md-10 col-md-offset-1">
 			<div class="panel panel-default">
-				<div class="panel-heading">Buy {{ucfirst($brand)}} Giftcards</div>
+				<div class="panel-heading">Buy {{ucfirst($brand)}} Gift Cards</div>
 					<div class="panel-body">
 					<table class="table table-striped">
 					 <tr>
@@ -20,9 +20,9 @@
 		
 			<tr>
 			<td><img width="68" height="68" src="{{$giftcard['image']}}"></img></td>
-			<td>{{ $giftcard['balance'] }}</td>
+			<td>&#8377;{{ $giftcard['balance'] }}</td>
 			<td>{{ number_format(round(($giftcard['balance'] - $giftcard['offer_price'])*100)/$giftcard['balance'], 2)}} %</td>
-			<td>{{ $giftcard['offer_price'] }}</td>
+			<td>&#8377;{{ $giftcard['offer_price'] }}</td>
 			<td> {{ $giftcard['expiry_date'] }} </td>
 			<td>
 				<button class="buy-card btn btn-primary" data-sku="{{ $giftcard['sku'] }}" data-desc="" data-price="{{ $giftcard['offer_price']}}">

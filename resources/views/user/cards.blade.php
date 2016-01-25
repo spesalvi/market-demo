@@ -19,8 +19,8 @@
 								<td>
 									<img width="68" height="68" src="{{$card->brand->img_large}}">
 								</td>
-								<td>{{$card['balance']}}</td>
-								<td>{{$card['offer_price']}}</td>
+								<td>&#8377;{{$card['balance']}}</td>
+								<td>&#8377;{{$card['offer_price']}}</td>
 								<td>Sold</td>
 							</tr>
 						@empty
