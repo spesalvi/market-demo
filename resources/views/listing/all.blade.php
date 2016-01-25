@@ -19,7 +19,7 @@
 	@forelse($gift_cards as $giftcard)
 		
 			<tr>
-			<td><img width="68" height="68" src="http://devcdn.giftbig.com/dev3/brands_logo/large/3_logo.png"></img></td>
+			<td><img width="68" height="68" src="{{$giftcard['image']}}"></img></td>
 			<td>{{ $giftcard['balance'] }}</td>
 			<td>{{ number_format(round(($giftcard['balance'] - $giftcard['offer_price'])*100)/$giftcard['balance'], 2)}} %</td>
 			<td>{{ $giftcard['offer_price'] }}</td>
