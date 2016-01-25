@@ -21,27 +21,19 @@ class ListingController extends Controller
 
 	public function getListing(Request $request, $brand)
 	{
-		//$gift_cards = GiftCard::all();
-		$gift_cards = [
-			[
-				'sku' => '123',
-				'expiry_date' => '2016-05-25',
-				'balance' => '200',
-				'offer_price' => '190',
-			],
-			[
-				'sku' => '124',
-				'expiry_date' => '2016-02-28',
-				'balance' => '2000',
-				'offer_price' => '1800'
-			],
-			[
-				'sku' => '125',
-				'expiry_date' => '2016-12-21',
-				'balance' => '20000',
-				'offer_price' => '18000'
-			],
-		];
+		$brand_cards = GiftCard::where('brand_id', 0)->get();
+		
+		$gift_cards = [];
+		foreach($brand_cards as $card)
+		{
+			$gift_cards[] = [
+				'sku' => $card->id,
+				'expiry_date' => $card->expiry_date,
+				'balance' => $card->balance,
+				'offer_price' => $card->offer_price
+			];
+		}
+
 		return view('listing.all', [
 			'cart_items' => $this->cart->totalItems(),
 			'gift_cards' => $gift_cards,
