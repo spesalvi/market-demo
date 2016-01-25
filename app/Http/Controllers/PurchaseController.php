@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
 use App\Jobs\SendPurchaseEmail;
 use App\User;
+use App\GiftCard;
 
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
@@ -29,16 +30,33 @@ class PurchaseController extends Controller
 	{
 		$response = $this->capturePayment($request->input('razorpay_payment_id'));
 		if($response->status == 'captured') {
+			$this->markItemsAsPurchased();
+			$this->mailCardDetails();
 			$this->cart->destroy();
-			$this->mailCardDetails('123', '3456');
 			return redirect()->action('UserController@getMyCards');
 		}
 		echo 'Transaction failed. Please try again.';
 	}
-	
-	private function mailCardDetails($cardnumber, $pin)
+
+	private function markItemsAsPurchased()
 	{
-		$this->dispatch(new SendPurchaseEmail($this->user->id, $cardnumber, $pin));	
+		foreach($this->cart->all() as $item)
+		{
+			GiftCard::where([
+				['id',  $item['sku']],//fill with sku
+				['status', 'incart'],
+			])->update(['status' => 'purchased']);
+		}
+	}
+	
+	private function mailCardDetails()
+	{
+		foreach($this->cart->all() as $item)
+		{
+			$card_id = $item['sku'];	
+			$this->dispatch(new SendPurchaseEmail($this->user->id, $card_id));	
+			//$this->dispatch(new SendSaleAlertMail($card_id));
+		}
 	}
 
 	private function capturePayment($id)

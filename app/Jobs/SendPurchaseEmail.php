@@ -3,11 +3,17 @@
 namespace App\Jobs;
 
 use App\Jobs\Job;
+
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Contracts\Mail\Mailer;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Crypt; 
+
 use App\User;
+use App\StoredValue;
+use App\GiftCard;
 
 class SendPurchaseEmail extends Job implements ShouldQueue
 {
@@ -22,11 +28,15 @@ class SendPurchaseEmail extends Job implements ShouldQueue
      *
      * @return void
      */
-    public function __construct($user_id, $card_number, $card_pin)
+    public function __construct($user_id, $card_id)
 	{
 		$this->user = User::find($user_id);
-		$this->card_number = $card_number;
-		$this->card_pin = $card_pin;
+		$card = GiftCard::find($card_id);
+		$this->card_number = $card->card_number;
+		$this->card_pin = $this->resetPin();
+
+		$card->encyrpted_pin = Crypt::encrypt($this->card_pin);
+		$card->save();
 	}
 
     /**
@@ -52,4 +62,18 @@ class SendPurchaseEmail extends Job implements ShouldQueue
 	     );
 	     $this->delete();
     }
+
+	private function resetPin()
+	{
+		$sv = new StoredValue();
+		$resetResponse = $sv->changePin($this->card_number);
+		if($resetResponse->getErrorCode() != 0)
+		{
+			Log::error('unable to reset pin');
+			
+			//discard or retry
+		}
+		Log::notice('pin after reset while sending purchase mail '. $resetResponse->getCardPin());
+		return $resetResponse->getCardPin();
+	}
 }
