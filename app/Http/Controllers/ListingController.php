@@ -29,7 +29,10 @@ class ListingController extends Controller
 	public function getListing(Request $request, $brand_slug)
 	{
 		$brand = $this->getBrand($brand_slug);
-		$brand_cards = GiftCard::where('brand_id', $brand->id)->get();
+		$brand_cards = GiftCard::where([
+				['brand_id', $brand->id],
+				['status' , 'available'],
+			])->get();
 
 		return $this->displayCards($brand_cards, $brand);
 	}

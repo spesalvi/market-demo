@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 
+use App\GiftCard;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use JulioBitencourt\Cart\Cart;
@@ -20,6 +21,10 @@ class CartController extends Controller
 
 	public function index()
 	{
+		if($this->cart->isEmpty())
+		{
+			return redirect()->action('ListingController@getAllListings');
+		}
 		return view('cart.details',[
 			'total' => $this->cart->totalItems(),
 			'cart' => $this->cart
@@ -40,6 +45,13 @@ class CartController extends Controller
 			'price' => $request->input('price'),
 			'quantity' => 1
 		];
+
+		GiftCard::where([
+			['id', $request->input('sku')],
+			['status' , 'available']
+		])->update(['status' => 'incart']);
+
+
 		$result = $this->cart->insert($item);
 		$response = array(
 			'status' => 'success',

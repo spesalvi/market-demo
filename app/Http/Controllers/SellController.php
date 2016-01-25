@@ -46,6 +46,7 @@ class SellController extends Controller
 				$card_number,
 				$pin,
 				$balance,
+				$sell_price,
 				$expiry,
 				$brand
 		);
@@ -103,7 +104,7 @@ class SellController extends Controller
 		return Brands::where('sv_name', $brand_sv)->get()->first();
 	}
 
-	private function saveCard($card_num, $pin, $balance, $expiry_date, $brand)
+	private function saveCard($card_num, $pin, $balance, $sell_price, $expiry_date, $brand)
 	{
 		$user = Auth::user();
 		 
@@ -111,9 +112,11 @@ class SellController extends Controller
 		$card->card_number = $card_num;
 		$card->encyrpted_pin = Crypt::encrypt($pin);
 		$card->balance = $balance;
+		$card->offer_price = $sell_price;
 		$card->expiry_date = $expiry_date;//date('Y-m-d\TH:i:s\Z', $expiry_date);
 		$card->user_id = $user->id;
 		$card->brand_id = $brand->id;
+		$card->status = 'validating';
 
 		$card->save();
 		

@@ -49,6 +49,11 @@ class ResetPinAfterListing extends Job implements ShouldQueue
 
 		}
 
+		if($checkBalanceResponse->getAmount() != $this->card->balance)
+		{
+			//fail the job
+		}
+
 		$resetResponse = $sv->changePin($card_num);
 		if($resetResponse->getErrorCode() != 0) {
 			//retry?	
@@ -58,7 +63,9 @@ class ResetPinAfterListing extends Job implements ShouldQueue
 
 		Log::info('new pin ' . $pin);
 		$this->card->encyrpted_pin = Crypt::encrypt($pin);
+		$this->card->status = 'available';
 		$this->card->save();
+		
 
 		$this->delete();	
 	}
