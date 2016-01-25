@@ -19,3 +19,16 @@ $factory->define(App\User::class, function (Faker\Generator $faker) {
         'remember_token' => str_random(10),
     ];
 });
+
+$factory->define(App\GiftCard::class, function (Faker\Generator $faker) {
+	return [
+			'card_number' => $faker->randomNumber(8) . $faker->randomNumber(8),
+			'encyrpted_pin' => Crypt::encrypt($faker->randomNumber(6)),
+			'balance' => $faker->randomFloat(3, 900.00, 999.00),
+			'expiry_date' => $faker->dateTimeBetween('now', '+12 months'),
+			'offer_price' => $faker->randomFloat(3, 800.00, 899.00),
+			'user_id' => '1',
+			'brand_id' => '0'
+		];
+		
+});
