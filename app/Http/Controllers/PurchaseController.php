@@ -31,10 +31,9 @@ class PurchaseController extends Controller
 		if($response->status == 'captured') {
 			$this->cart->destroy();
 			$this->mailCardDetails('123', '3456');
-			echo 'Transaction complete. Card details will be mailed to your email.';
-		} else {
-			echo 'Transaction failed. Please try again.';
+			return redirect()->action('UserController@getMyCards');
 		}
+		echo 'Transaction failed. Please try again.';
 	}
 	
 	private function mailCardDetails($cardnumber, $pin)
