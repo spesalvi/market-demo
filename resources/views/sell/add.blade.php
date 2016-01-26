@@ -60,7 +60,7 @@
 							Expiry Date	
 						</label>
 						<div class="col-md-6">
-							<input readonly id="date" name="date" type="text" class="form-control">
+							<input readonly id="date" name="date" type="date" class="form-control">
 						</div>
 					</div>
 						<input type="hidden" name="brand_sv" value="">
@@ -69,7 +69,7 @@
 					  	<button type="submit" id="validate-card" class="btn btn-primary">
 						  <i class="fa fa-btn fa-sign-in"></i>Validate Card
 						</button>
-						<button type="submit" style="display:none;" id="sell-card" class="btn btn-prmiary">
+						<button type="submit" style="display:none;" id="sell-card" class="btn btn-primary" disabled>
 						  <i class="fa fa-btn fa-sign-in"></i>Sell Card
 						</button>
 

@@ -12,6 +12,7 @@ use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Foundation\Bus\DispatchesJobs;
+use JulioBitencourt\Cart\Cart;
 
 use Response;
 use View;
@@ -21,21 +22,25 @@ class SellController extends Controller
 {
 	use DispatchesJobs;
 	private $sv;
+	protected $cart;
 
 
 	
-	public function __construct(StoredValue $sv)
+	public function __construct(Cart $cart)
 	{
-		$this->sv = $sv;
+		$this->cart = $cart;
 	}
+
 	public function getAddCard()
 	{
-		return view('sell.add');
+		return view('sell.add', [
+			'cart_items' => $this->cart->totalItems()
+		]) ;
 	}
 
 	public function postAddCard(SellFormRequest $request)
 	{
-		$card_number = $request->input('card-number');
+		$card_number = str_replace(' ', '', $request->input('card-number'));
 		$pin = $request->input('pin');
 		$sell_price = $request->input('price');	
 		$balance = $request->input('balance');
@@ -64,7 +69,7 @@ class SellController extends Controller
 
 	public function postCheckBalance(ValidateCardRequest $request)
 	{
-		$card_number = $request->input('card-number');
+		$card_number = str_replace(' ', '', $request->input('card-number'));
 		$pin = $request->input('pin');
 		$checkBalanceResponse = $this->sv->checkBalance($card_number, $pin);
 		if($checkBalanceResponse->getErrorCode() != 0)

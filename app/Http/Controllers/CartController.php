@@ -27,6 +27,7 @@ class CartController extends Controller
 		}
 		return view('cart.details',[
 			'total' => $this->cart->totalItems(),
+			'cart_items' => $this->cart->totalItems(),
 			'cart' => $this->cart
 		]);
 	}

@@ -8,13 +8,16 @@ use Illuminate\Support\Facades\Auth;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use App\GiftCard;
+use JulioBitencourt\Cart\Cart;
 
 class UserController extends Controller
 {
 	private $user; 
+	protected $cart;
 
-	public function __construct()
+	public function __construct(Cart $cart)
 	{
+		$this->cart = $cart;
 		$this->user = Auth::user();	
 	}
 
@@ -22,8 +25,9 @@ class UserController extends Controller
 	{
 		$cards = GiftCard::where('user_id', $this->user->id)->get();
 		
+		$cart_items = $this->cart->totalItems();
 		return view('user.cards')
-			->with(compact('cards'));
+			->with(compact('cards', 'cart_items'));
 	}
 
 }
