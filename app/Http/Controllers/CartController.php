@@ -40,18 +40,23 @@ class CartController extends Controller
 			$content = 'Not allowed';
 			return new Response($content, $status_code);
 		}	
+		$sku = $request->input('sku');
+
+		$card = GiftCard::where([
+			['id', $sku],
+			['status' , 'available']
+		])->get()
+		   ->first();
+
 		$item = [
 			'sku' => $request->input('sku'),
 			'description' => $request->input('description'),
-			'price' => $request->input('price'),
+			'price' => $card->offer_price,
 			'quantity' => 1
 		];
 
-		GiftCard::where([
-			['id', $request->input('sku')],
-			['status' , 'available']
-		])->update(['status' => 'incart']);
-
+		$card->status = 'incart';
+		$card->save();
 
 		$result = $this->cart->insert($item);
 		$response = array(
@@ -65,8 +70,24 @@ class CartController extends Controller
 		
 	}
 
-	public function delete()
+	public function delete(Request $request)
 	{
+		$sku = $request->input('sku');
+
+		$card = GiftCard::where([
+			['id', $sku],
+			['status', 'incart']
+		])->get()->first();
+
+		$this->cart->delete($sku);
+
+		$card->status = 'available';
+		$card->save();
+
+		return response()->json([
+			'status' => 'success',
+			'cart_size' => $this->cart->totalItems()
+		]);
 	}
 
 	public function discard(Request $request)

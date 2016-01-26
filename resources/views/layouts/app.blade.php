@@ -99,7 +99,10 @@
                             </ul>
                         </li>
                     @endif
-		    <li><a href="{{ url('/cart') }}"> <span id="size">0</span> item(s) in cart</a> </li>
+		    <li>
+				<a href="{{ url('/cart') }}"> <span id="size">{{ isset($cart_items) ? $cart_items : 0 }}</span> item(s) in cart
+				</a> 
+			</li>
                 </ul>
             </div>
         </div>

@@ -14,7 +14,7 @@
 							Card Number
 						</label>
 						<div class="col-md-6">
-							<input type="text" class="form-control" name="card-number" value="">
+							<input type="text" class="form-control" name="card-number" value="{{ old('card-number') }} ">
 							@if($errors->has('card-number'))
 								<span class="helper-block">
 									<strong>
@@ -29,7 +29,7 @@
 							Pin
 						</label>
 						<div class="col-md-6">
-							<input type="password" name="pin" class="form-control" size="4">
+							<input type="password" name="pin" class="form-control" size="4" value="{{ old('pin') }}">
 							@if($errors->has('pin'))
 								<span class="helper-block">
 									<strong>
@@ -44,7 +44,7 @@
 						 	Stored Value
 						</label>
 						<div class="col-md-6">
-						  <input id="balance" name="balance" type="text" class="form-control" readonly value="">
+						  <input id="balance" name="balance" type="text" class="form-control" readonly value="{{old('balance')}}">
 						</div>
 					</div>
 					<div class="form-group">
@@ -60,16 +60,13 @@
 							Expiry Date	
 						</label>
 						<div class="col-md-6">
-							<input readonly id="date" name="date" type="date" class="form-control">
+							<input readonly id="date" name="date" type="text" class="form-control" value="{{old('date')}}">
 						</div>
 					</div>
 						<input type="hidden" name="brand_sv" value="">
 					<div class="form-group">
 					  <div class="col-md-6 col-md-offset-4">
-					  	<button type="submit" id="validate-card" class="btn btn-primary">
-						  <i class="fa fa-btn fa-sign-in"></i>Validate Card
-						</button>
-						<button type="submit" style="display:none;" id="sell-card" class="btn btn-primary" disabled>
+						<button type="submit" id="sell-card" class="btn btn-primary">
 						  <i class="fa fa-btn fa-sign-in"></i>Sell Card
 						</button>
 
