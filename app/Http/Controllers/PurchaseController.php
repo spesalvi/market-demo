@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Session\SessionServiceProvider;
+
 use App\Jobs\SendPurchaseEmail;
 use App\User;
 use App\GiftCard;
@@ -35,6 +37,7 @@ class PurchaseController extends Controller
 			$this->insertIntoOrders();
 			$this->mailCardDetails();
 			$this->cart->destroy();
+			$request->session()->('card_purchased', true);
 			return redirect()->action('UserController@purchasedCards');
 		}
 		echo 'Transaction failed. Please try again.';

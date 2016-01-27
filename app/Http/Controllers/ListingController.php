@@ -22,7 +22,9 @@ class ListingController extends Controller
 
 	public function getAllListings(Request $request)
 	{
-		$brand_cards = GiftCard::all();
+		$brand_cards = GiftCard::where([
+			['status', 'available']
+		])->get();
 		return $this->displayCards($brand_cards);
 	}
 

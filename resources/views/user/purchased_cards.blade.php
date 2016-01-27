@@ -7,6 +7,9 @@
 			<div class="panel panel-default">
 				<div class="panel-heading">My Purchased Gift Cards</div>
 				<div class="panel-body">
+				{{@if new_purchase }}
+				   <span>Your purchase was successful</span>
+				{{@endif}}
 					<table class="table table-striped">
 						<tr>
 							<th class="col-md-2">Brand</th>

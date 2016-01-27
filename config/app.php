@@ -155,7 +155,8 @@ return [
         App\Providers\AuthServiceProvider::class,
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
-	JulioBitencourt\Cart\CartServiceProvider::class
+	JulioBitencourt\Cart\CartServiceProvider::class,
+	App\Providers\StoredValueProvider::class,
 
     ],
 
