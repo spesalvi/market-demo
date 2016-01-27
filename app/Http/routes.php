@@ -46,6 +46,9 @@ Route::group(['middleware' => ['web', 'auth']], function () {
     Route::post('/sell-gift-card', 'SellController@postAddCard');
     Route::post('/check-gift-card-balance', 'SellController@postCheckBalance');
 
+	Route::post('/reset-pin', 'ResetPinController@postReset');
+	
     Route::get('/user/profile', 'UserController@getProfile');
     Route::get('/user/cards', 'UserController@getMyCards');
+	Route::get('/user/purchased-cards', 'UserController@purchasedCards');
 });

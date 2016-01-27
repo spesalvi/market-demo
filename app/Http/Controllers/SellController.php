@@ -26,9 +26,10 @@ class SellController extends Controller
 
 
 	
-	public function __construct(Cart $cart)
+	public function __construct(Cart $cart, StoredValue $sv)
 	{
 		$this->cart = $cart;
+		$this->sv = $sv;
 	}
 
 	public function getAddCard()

@@ -95,6 +95,8 @@
                             </a>
 
                             <ul class="dropdown-menu" role="menu">
+								<li><a href="{{url('/user/cards')}}"><i class=""></i>Cards for sale</a><li>
+								<li><a href="{{url('/user/purchased-cards')}}"><i class=""></i>Purchased Cards</a></li>
                                 <li><a href="{{ url('/logout') }}"><i class="fa fa-btn fa-sign-out"></i>Logout</a></li>
                             </ul>
                         </li>

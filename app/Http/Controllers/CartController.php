@@ -52,7 +52,8 @@ class CartController extends Controller
 			'sku' => $request->input('sku'),
 			'description' => $request->input('description'),
 			'price' => $card->offer_price,
-			'quantity' => 1
+			'quantity' => 1,
+			'options' => $card->brand->img_large
 		];
 
 		$card->status = 'incart';

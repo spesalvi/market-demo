@@ -12,7 +12,7 @@ class SellFormRequest extends FormRequest
 			'card-number' => 'required|unique:gift_cards,card_number|regex:/^[0-9]{16}$/',
 			'price' => 'required|regex:/^[0-9]\.[0-9]{2}+/',
 			'balance' => 'required|regex:/^[0-9]\.[0-9]{2}+/',
-			'date' => 'required|date',
+			'date' => 'required|date_format:Y-m-d\TH:i:s\Z',
 			'pin' => 'required|regex:/^[0-9]{6}/'
 		];
 	}

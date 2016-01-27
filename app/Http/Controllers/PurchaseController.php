@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Mail;
 use App\Jobs\SendPurchaseEmail;
 use App\User;
 use App\GiftCard;
+use App\Order;
 
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
@@ -31,6 +32,7 @@ class PurchaseController extends Controller
 		$response = $this->capturePayment($request->input('razorpay_payment_id'));
 		if($response->status == 'captured') {
 			$this->markItemsAsPurchased();
+			$this->insertIntoOrders();
 			$this->mailCardDetails();
 			$this->cart->destroy();
 			return redirect()->action('UserController@getMyCards');
@@ -43,9 +45,29 @@ class PurchaseController extends Controller
 		foreach($this->cart->all() as $item)
 		{
 			GiftCard::where([
-				['id',  $item['sku']],//fill with sku
+				['id',  $item['sku']],
 				['status', 'incart'],
 			])->update(['status' => 'purchased']);
+		}
+	}
+
+	private function insertIntoOrders()
+	{
+		
+		foreach($this->cart->all() as $item)
+		{
+			$card = GiftCard::where([
+				['id', $item['sku']]
+
+			])->get()->first();
+			$order = new Order();
+			$order->card_id = $item['sku'];
+			$order->stored_value = $card->offer_price;
+			$order->user_id = $this->user ? $this->user->id : 0;
+			$order->brand_id = $card->brand->id;
+			$order->purchase_value = $item['price'];
+
+			$order->save();
 		}
 	}
 	
