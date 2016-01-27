@@ -63,7 +63,7 @@ $('input[name="card-number"]').keyup(function(event){
 	console.log(number);
 
 	if(/^[0-9]{16}$/.test(number)) {
-		$('input[name="pin"]').focus();
+		//$('input[name="pin"]').focus();
 	}
 });
 
@@ -78,6 +78,7 @@ $('input[name="pin"]').keyup(function(event) {
 
 	
 	if(/^[0-9]{6}$/.test(pin) == false ||  /^[0-9]{16}$/.test(cardnum) == false) {
+		console.log('condition not met');
 		return;	
 	}
 	validateCard($('#validate-card'));
@@ -100,6 +101,8 @@ function validateCard(that) {
 					$('.auto-filled-fields').show();
 					$('#balance').val(data.data.balance);
 					$('input[name="date"]').val((data.data.expiry));
+					console.log(formatDate(data.data.expiry));
+					$('input[name="date-2"]').val((formatDate(data.data.expiry)));
 					$('input[name="brand_sv"]').val(data.data.brand);
 					$(that).hide();
 					$('#sell-card').show();

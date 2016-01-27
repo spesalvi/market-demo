@@ -35,7 +35,7 @@ class PurchaseController extends Controller
 			$this->insertIntoOrders();
 			$this->mailCardDetails();
 			$this->cart->destroy();
-			return redirect()->action('UserController@getMyCards');
+			return redirect()->action('UserController@purchasedCards');
 		}
 		echo 'Transaction failed. Please try again.';
 	}

@@ -25,10 +25,18 @@ class CartController extends Controller
 		{
 			return redirect()->action('ListingController@getAllListings');
 		}
+		$items = $this->cart->all();
+		foreach($items as &$item)
+		{
+			$item['card'] = GiftCard::where([
+				['id', $item['sku']]
+			])->get()->first();	
+		}
 		return view('cart.details',[
 			'total' => $this->cart->totalItems(),
 			'cart_items' => $this->cart->totalItems(),
-			'cart' => $this->cart
+			'cart' => $this->cart,
+			'items' => $items
 		]);
 	}
 

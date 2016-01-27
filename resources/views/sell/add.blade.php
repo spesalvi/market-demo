@@ -60,7 +60,8 @@
 							Expiry Date	
 						</label>
 						<div class="col-md-6">
-							<input readonly id="date" name="date" type="text" class="form-control" value="{{old('date')}}">
+							<input id="date" name="date" type="hidden" class="form-control" value="{{old('date')}}">
+							<input disabled  name="date-2" class="form-control" type="text" value="">
 						</div>
 					</div>
 						<input type="hidden" name="brand_sv" value="">

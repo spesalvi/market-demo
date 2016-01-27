@@ -9,19 +9,19 @@
 					<div class="panel-body">
 					<table class="table table-striped">
 					<tr>
-						<th class="col-md-2">SKU</th>
-						<th class="col-md-5">Description</th>
-						<th class="col-md-2">quantity</th>
-						<th class="col-md-2">price</th>
-						<th class="col-md-2">total</th>
+						<th class="col-md-2">Brand</th>
+						<th class="col-md-2">Description</th>
+						<th class="col-md-2">Stored Value</th>
+						<th class="col-md-2">Price</th>
+						<th class="col-md-2">Savings</th>
 					</tr>
-					@forelse($cart->all() as $item)
+					@forelse($items as $item)
 						<tr>
-							<td>{{$item['sku']}}</td>
+							<td><img src="{{ $item['options'] }}" height="68" width="68" ></td>
 							<td>{{$item['description']}}</td>
-							<td>{{$item['quantity']}}</td>
+							<td>{{$item['card']->balance}}</td>
 							<td>{{$item['price']}}</td>
-							<td>{{ $item['quantity'] * $item['price'] }}</td>
+							<td>{{$item['card']->balance - $item['price']}}</td>
 
 						</tr>
 					@empty
@@ -37,7 +37,7 @@
 <script
     src="https://checkout.razorpay.com/v1/checkout.js"
     data-key="rzp_test_C4L2rxsV1t84Ks"
-    data-amount="{{ $cart->total() * 100}}"
+    data-amount="{{ $total * 100}}"
     data-name="Woohoo Market"
     data-description="Selling GiftCard"
     data-image="https://stage.woohoo.in/media/smartbanner/woohoo_banner.png"

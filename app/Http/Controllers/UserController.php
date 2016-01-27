@@ -24,7 +24,9 @@ class UserController extends Controller
 
 	public function getMyCards()
 	{
-		$cards = GiftCard::where('user_id', $this->user->id)->get();
+		$cards = GiftCard::where('user_id', $this->user->id)
+			->orderBy('created_at', 'DESC')
+			->get();
 		
 		$cart_items = $this->cart->totalItems();
 		return view('user.cards')
